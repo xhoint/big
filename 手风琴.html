@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>做人要对自己狠一点</title>
+    <style>
+        ul {
+            list-style: none;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+
+        div {
+            width: 1150px;
+            height: 400px;
+            margin: 50px auto;
+            border: 1px solid red;
+            overflow: hidden;
+        }
+
+        div li {
+            width: 240px;
+            height: 400px;
+            float: left;
+            transition: width 300ms;
+        }
+
+        div ul {
+            width: 1300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</body>
+<script>
+    /* 
+      效果：
+        0. 一开始页面加载的时候，就给每个li，设置一个背景图片
+        1. 鼠标移入，把当前的li变宽，其他的li变窄
+        2. 鼠标移出，所有的li恢复原来的大小
+    */
+    // 0. 一开始就给每个li，设置背景图片
+    // 0.1 获取元素
+    let lis = document.querySelectorAll('#box li');
+    // 0.2 循环的设置每个li的背景图片
+    lis.forEach(function (e, i) {
+        e.style.backgroundImage = 'url("./images/' + (i + 1) + '.jpg")';
+    })
+
+    // 1. 鼠标移入，把当前的li变宽，把其他li变窄
+    // 1.1 获取元素，上一个效过已经过了
+    // 1.2 注册事件
+    lis.forEach(function (e) {
+        e.onmouseover = function () {
+            // 1.3 排他的设置宽度
+            lis.forEach(function (ele) {
+                ele.style.width = '100px';
+            });
+            // 1.4 把当前的li设置为宽的
+            this.style.width = 800 + 'px';
+        }
+    });
+
+    // 2.鼠标移出，把所有的li恢复原状
+    lis.forEach(function (e) {
+        e.onmouseout = function () {
+            // 统一恢复原状
+            lis.forEach(function (ele) {
+                ele.style.width = '240px';
+            })
+        }
+    })
+
+</script>
+
+</html>
