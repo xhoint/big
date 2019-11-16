@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .box {
+            width: 322px;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            overflow: hidden;
+        }
+
+        span {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .bd {
+            height: 105px;
+            transition: all 2000ms;
+        }
+
+        .box {
+            transition: all 600ms;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+        <span id="closeButton"></span>
+        <div class="hd" id="headPart">
+            <img src="images/t.jpg" alt="" />
+        </div>
+        <div class="bd" id="bottomPart">
+            <img src="images/b.jpg" alt="" />
+        </div>
+    </div>
+</body>
+<script>
+    // 获取元素
+    let btn = document.querySelector('#closeButton');
+
+    let bottomPart = document.querySelector('#bottomPart');
+
+    let box = document.querySelector('#box');
+
+
+    // 注册事件
+    // 让底部盒子高度变为0
+    btn.onclick = function () {
+        bottomPart.style.height = 0;
+
+        // 使用过渡动画让大盒子宽度变为0
+        bottomPart.addEventListener('transitionend', function () {
+            box.style.width = 0;
+        })
+    }
+
+
+
+</script>
+
+</html>
