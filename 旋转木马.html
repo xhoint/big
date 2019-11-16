@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>旋转木马轮播图</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0
+    }
+
+    ul {
+      list-style: none
+    }
+
+    img {
+      border: 0;
+      vertical-align: top;
+    }
+
+    a,
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      width: 1200px;
+      margin: 100px auto;
+    }
+
+    .slide {
+      height: 500px;
+      position: relative;
+    }
+
+    .slide li {
+      position: absolute;
+      left: 200px;
+      top: 0;
+      transition: all 350ms;
+    }
+
+    .slide li img {
+      width: 100%;
+    }
+
+    .prev,
+    .next {
+      width: 76px;
+      height: 112px;
+      position: absolute;
+      top: 50%;
+      margin-top: -56px;
+      background: url(./images/prev.png) no-repeat;
+      z-index: 99;
+    }
+
+    .next {
+      right: 0;
+      background-image: url(./images/next.png);
+    }
+
+    .slide li.left1 {
+      width: 400px;
+      top: 20px;
+      left: 50px;
+      opacity: 0.2;
+      z-index: 2;
+    }
+
+    .slide li.left2 {
+      width: 600px;
+      top: 70px;
+      left: 0px;
+      opacity: 0.8;
+      z-index: 3;
+    }
+
+    .slide li.middle {
+      width: 800px;
+      top: 100px;
+      left: 200px;
+      opacity: 1;
+      z-index: 4;
+    }
+
+    .slide li.right2 {
+      width: 600px;
+      top: 70px;
+      left: 600px;
+      opacity: 0.8;
+      z-index: 3;
+    }
+
+    .slide li.right1 {
+      width: 400px;
+      top: 20px;
+      left: 750px;
+      opacity: 0.2;
+      z-index: 2;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap" id="wrap">
+    <div class="slide" id="slide">
+      <ul>
+        <li>
+          <a href="#"><img src="images/slidepic1.jpg" alt="" /></a>
+        </li>
+        <li>
+          <a href="#"><img src="images/slidepic2.jpg" alt="" /></a>
+        </li>
+        <li>
+          <a href="#"><img src="images/slidepic3.jpg" alt="" /></a>
+        </li>
+        <li>
+          <a href="#"><img src="images/slidepic4.jpg" alt="" /></a>
+        </li>
+        <li>
+          <a href="#"><img src="images/slidepic5.jpg" alt="" /></a>
+        </li>
+      </ul>
+      <div class="arrow" id="arrow">
+        <a href="javascript:;" class="prev" id="arrLeft"></a>
+        <a href="javascript:;" class="next" id="arrRight"></a>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  /* 
+    旋转木马的效果：
+      1. 从中间发散到边缘的效果
+      2. 点击按钮，切换图片的效果
+  */
+  /* 
+    1.从中间发散到两边
+      实例就是给每个li设置不同额类名
+  */
+  // 给每个li设置不同的类名
+  window.onload = function () {
+    // 获取元素
+    let lis = document.querySelectorAll('.slide li');
+    // 把类名也放到一个数组里面，循环的时候，根据索引获取对应的类名即可
+    let classNames = ['left1','left2','middle','right2','right1'];
+    // 给每个元素设置不同的类名
+    lis.forEach(function(e,i){
+      e.className = classNames[i];
+    })
+
+
+    /*
+      点击按钮切换
+        思路：给按钮注册点击事件
+          点击右边按钮，实现逆时针旋转的效果
+            只需要把第一个li的类名设置为第二个li的类名，把第二个li的类名设置为第三个li的类名，把第三个li的类名，设置为第四个li的类名....
+            最后一个li的类名，设置为第一个li的类名
+    */
+    // 获取元素
+    let arrRight = document.querySelector('#arrRight');
+    // 注册点击事件
+    arrRight.onclick = function(){
+      // 逆时针旋转的思路： 把类名数组的第一个从前面取出来，放到后面，再给li设置一次类名即可
+      let first = classNames.shift();
+      classNames.push(first);
+      // console.log(classNames);
+      // 给每个li设置类名
+      lis.forEach(function(e,i){
+        e.className = classNames[i];
+      });
+    }
+
+    let arrLeft = document.querySelector('#arrLeft');
+    arrLeft.onclick = function(){
+      // 把类名从末尾去除，插入到最前面，给li设置类名
+      let last = classNames.pop();
+      classNames.unshift(last);
+      lis.forEach(function(e,i){
+        e.className = classNames[i];
+      });
+    }
+  }
+</script>
+
+</html>
